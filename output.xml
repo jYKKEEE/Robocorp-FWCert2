@@ -1,0 +1,722 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1.1 (Python 3.10.12 on win32)" generated="20231013 11:37:07.735" rpa="true" schemaversion="4">
+<suite id="s1" name="Tasks" source="c:\Users\JyriLinna-Alho\Desktop\Robocorp\FW-Cert2\tasks.robot">
+<test id="s1-t1" name="Order robots from RobotSpareBin Industries Inc" line="14">
+<kw name="Open the robot order website">
+<kw name="Open Available Browser" library="RPA.Browser.Selenium">
+<arg>https://robotsparebinindustries.com/#/robot-order</arg>
+<doc>Attempts to open a browser on the user's device from a set of
+supported browsers. Automatically downloads a corresponding webdriver
+if none is already installed.</doc>
+<msg timestamp="20231013 11:37:14.552" level="INFO">====== WebDriver manager ======</msg>
+<msg timestamp="20231013 11:37:17.606" level="INFO">Downloaded webdriver to: C:\Users\JyriLinna-Alho\AppData\Local\robocorp\webdrivers\.wdm\drivers\chromedriver\win64\118.0.5993.70\chromedriver-win32/chromedriver.exe</msg>
+<msg timestamp="20231013 11:37:17.737" level="INFO">Webdriver version taken into use: ChromeDriver 118.0.5993.70 (e52f33f30b91b4ddfad649acddc39ab570473b86-refs/branch-heads/5993@{#1216})
+</msg>
+<msg timestamp="20231013 11:37:20.831" level="INFO">Targeted browser version: 118.0.5993.70</msg>
+<msg timestamp="20231013 11:37:20.832" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<msg timestamp="20231013 11:37:22.877" level="INFO">Created Chrome browser with arguments: --disable-dev-shm-usage --disable-web-security --allow-running-insecure-content --no-sandbox</msg>
+<msg timestamp="20231013 11:37:22.878" level="INFO" html="true">&lt;p&gt;Attempted combinations:&lt;/p&gt;&lt;div class="doc"&gt;&lt;table&gt;&lt;tr&gt;&lt;th&gt;Browser&lt;/th&gt;&lt;th&gt;Download&lt;/th&gt;&lt;th&gt;Error&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Chrome&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;td&gt;Message: Webdriver executable 'chromedriver' is not in PATH (with disabled Selenium Manager)
+&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Chrome&lt;/td&gt;&lt;td&gt;True&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</msg>
+<msg timestamp="20231013 11:37:22.880" level="INFO">Opening url 'https://robotsparebinindustries.com/#/robot-order'</msg>
+<status status="PASS" starttime="20231013 11:37:12.999" endtime="20231013 11:37:23.628"/>
+</kw>
+<status status="PASS" starttime="20231013 11:37:12.993" endtime="20231013 11:37:23.631"/>
+</kw>
+<kw name="Download orders file">
+<kw name="Download" library="RPA.HTTP">
+<arg>https://robotsparebinindustries.com/orders.csv</arg>
+<arg>overwrite=True</arg>
+<doc>An alias for the ``HTTP Get`` keyword.</doc>
+<msg timestamp="20231013 11:37:23.642" level="INFO">Creating a new HTTP session</msg>
+<msg timestamp="20231013 11:37:23.643" level="INFO">Creating Session using : alias=rpasession_alias.httpsrobotsparebinindustries.com, url=https://robotsparebinindustries.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20231013 11:37:23.639" endtime="20231013 11:37:24.472"/>
+</kw>
+<status status="PASS" starttime="20231013 11:37:23.635" endtime="20231013 11:37:24.473"/>
+</kw>
+<kw name="Get orders">
+<var>${orders}</var>
+<kw name="Read table from CSV" library="RPA.Tables">
+<var>${orders}</var>
+<arg>orders.csv</arg>
+<doc>Read a CSV file as a table.</doc>
+<msg timestamp="20231013 11:37:24.493" level="INFO">${orders} = Table(columns=['Order number', 'Head', 'Body', 'Legs', 'Address'], rows=20)</msg>
+<status status="PASS" starttime="20231013 11:37:24.478" endtime="20231013 11:37:24.494"/>
+</kw>
+<return>
+<value>${orders}</value>
+<status status="PASS" starttime="20231013 11:37:24.495" endtime="20231013 11:37:24.497"/>
+</return>
+<msg timestamp="20231013 11:37:24.500" level="INFO">${orders} = Table(columns=['Order number', 'Head', 'Body', 'Legs', 'Address'], rows=20)</msg>
+<status status="PASS" starttime="20231013 11:37:24.475" endtime="20231013 11:37:24.501"/>
+</kw>
+<for flavor="IN">
+<var>${order}</var>
+<value>@{orders}</value>
+<iter>
+<var name="${order}">{'Order number': '1', 'Head': '1', 'Body': '2', 'Legs': '3', 'Address': 'Address 123'}</var>
+<kw name="Close the annoying modal">
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>Yep</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:24.521" level="INFO">Clicking button 'Yep'.</msg>
+<status status="PASS" starttime="20231013 11:37:24.513" endtime="20231013 11:37:24.636"/>
+</kw>
+<status status="PASS" starttime="20231013 11:37:24.511" endtime="20231013 11:37:24.638"/>
+</kw>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${order}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20231013 11:37:24.645" level="INFO">Selecting options from selection list 'head' by value 1.</msg>
+<status status="PASS" starttime="20231013 11:37:24.640" endtime="20231013 11:37:24.813"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>id-body-${order}[Body]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:24.820" level="INFO">Clicking button 'id-body-2'.</msg>
+<status status="PASS" starttime="20231013 11:37:24.814" endtime="20231013 11:37:25.002"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@placeholder="Enter the part number for the legs"]</arg>
+<arg>${order}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:25.009" level="INFO">Typing text '3' into text field '//input[@placeholder="Enter the part number for the legs"]'.</msg>
+<status status="PASS" starttime="20231013 11:37:25.004" endtime="20231013 11:37:25.275"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@placeholder="Shipping address"]</arg>
+<arg>${order}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:25.283" level="INFO">Typing text 'Address 123' into text field '//input[@placeholder="Shipping address"]'.</msg>
+<status status="PASS" starttime="20231013 11:37:25.278" endtime="20231013 11:37:25.520"/>
+</kw>
+<while condition="True">
+<iter>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>order</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:34.929" level="INFO">Clicking button 'order'.</msg>
+<status status="PASS" starttime="20231013 11:37:34.924" endtime="20231013 11:37:35.045"/>
+</kw>
+<kw name="Is Element Visible" library="RPA.Browser.Selenium">
+<var>${error}</var>
+<arg>//div[@class="alert alert-danger"]</arg>
+<doc>Is element visible</doc>
+<msg timestamp="20231013 11:37:35.074" level="INFO" html="true">Ran with keyword &lt;b&gt;Element Should Be Visible&lt;/b&gt; which returned error: &lt;i&gt;Element with locator '//div[@class="alert alert-danger"]' not found.&lt;/i&gt;</msg>
+<msg timestamp="20231013 11:37:35.075" level="INFO">${error} = False</msg>
+<status status="PASS" starttime="20231013 11:37:35.047" endtime="20231013 11:37:35.076"/>
+</kw>
+<if>
+<branch type="IF" condition="$error == $False">
+<break>
+<status status="PASS" starttime="20231013 11:37:35.123" endtime="20231013 11:37:35.125"/>
+</break>
+<status status="PASS" starttime="20231013 11:37:35.078" endtime="20231013 11:37:35.126"/>
+</branch>
+<status status="PASS" starttime="20231013 11:37:35.077" endtime="20231013 11:37:35.128"/>
+</if>
+<status status="PASS" starttime="20231013 11:37:25.522" endtime="20231013 11:37:35.129"/>
+</iter>
+<status status="PASS" starttime="20231013 11:37:25.522" endtime="20231013 11:37:35.130"/>
+</while>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>order-another</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:38.746" level="INFO">Clicking button 'order-another'.</msg>
+<status status="PASS" starttime="20231013 11:37:35.132" endtime="20231013 11:37:39.114"/>
+</kw>
+<status status="PASS" starttime="20231013 11:37:24.508" endtime="20231013 11:37:39.115"/>
+</iter>
+<iter>
+<var name="${order}">{'Order number': '2', 'Head': '4', 'Body': '1', 'Legs': '5', 'Address': 'Address 456'}</var>
+<kw name="Close the annoying modal">
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>Yep</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:39.129" level="INFO">Clicking button 'Yep'.</msg>
+<status status="PASS" starttime="20231013 11:37:39.124" endtime="20231013 11:37:39.276"/>
+</kw>
+<status status="PASS" starttime="20231013 11:37:39.121" endtime="20231013 11:37:39.277"/>
+</kw>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${order}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20231013 11:37:39.284" level="INFO">Selecting options from selection list 'head' by value 4.</msg>
+<status status="PASS" starttime="20231013 11:37:39.280" endtime="20231013 11:37:39.437"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>id-body-${order}[Body]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:39.445" level="INFO">Clicking button 'id-body-1'.</msg>
+<status status="PASS" starttime="20231013 11:37:39.439" endtime="20231013 11:37:39.592"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@placeholder="Enter the part number for the legs"]</arg>
+<arg>${order}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:39.599" level="INFO">Typing text '5' into text field '//input[@placeholder="Enter the part number for the legs"]'.</msg>
+<status status="PASS" starttime="20231013 11:37:39.594" endtime="20231013 11:37:39.764"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@placeholder="Shipping address"]</arg>
+<arg>${order}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:39.770" level="INFO">Typing text 'Address 456' into text field '//input[@placeholder="Shipping address"]'.</msg>
+<status status="PASS" starttime="20231013 11:37:39.765" endtime="20231013 11:37:39.990"/>
+</kw>
+<while condition="True">
+<iter>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>order</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:40.000" level="INFO">Clicking button 'order'.</msg>
+<status status="PASS" starttime="20231013 11:37:39.995" endtime="20231013 11:37:40.108"/>
+</kw>
+<kw name="Is Element Visible" library="RPA.Browser.Selenium">
+<var>${error}</var>
+<arg>//div[@class="alert alert-danger"]</arg>
+<doc>Is element visible</doc>
+<msg timestamp="20231013 11:37:40.131" level="INFO" html="true">Ran with keyword &lt;b&gt;Element Should Be Visible&lt;/b&gt; which returned error: &lt;i&gt;Element with locator '//div[@class="alert alert-danger"]' not found.&lt;/i&gt;</msg>
+<msg timestamp="20231013 11:37:40.132" level="INFO">${error} = False</msg>
+<status status="PASS" starttime="20231013 11:37:40.111" endtime="20231013 11:37:40.133"/>
+</kw>
+<if>
+<branch type="IF" condition="$error == $False">
+<break>
+<status status="PASS" starttime="20231013 11:37:40.136" endtime="20231013 11:37:40.138"/>
+</break>
+<status status="PASS" starttime="20231013 11:37:40.134" endtime="20231013 11:37:40.139"/>
+</branch>
+<status status="PASS" starttime="20231013 11:37:40.134" endtime="20231013 11:37:40.140"/>
+</if>
+<status status="PASS" starttime="20231013 11:37:39.992" endtime="20231013 11:37:40.141"/>
+</iter>
+<status status="PASS" starttime="20231013 11:37:39.992" endtime="20231013 11:37:40.142"/>
+</while>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>order-another</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:42.423" level="INFO">Clicking button 'order-another'.</msg>
+<status status="PASS" starttime="20231013 11:37:40.144" endtime="20231013 11:37:42.588"/>
+</kw>
+<status status="PASS" starttime="20231013 11:37:39.118" endtime="20231013 11:37:42.590"/>
+</iter>
+<iter>
+<var name="${order}">{'Order number': '3', 'Head': '6', 'Body': '2', 'Legs': '3', 'Address': 'Address 789'}</var>
+<kw name="Close the annoying modal">
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>Yep</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:42.601" level="INFO">Clicking button 'Yep'.</msg>
+<status status="PASS" starttime="20231013 11:37:42.597" endtime="20231013 11:37:42.692"/>
+</kw>
+<status status="PASS" starttime="20231013 11:37:42.594" endtime="20231013 11:37:42.693"/>
+</kw>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${order}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20231013 11:37:42.700" level="INFO">Selecting options from selection list 'head' by value 6.</msg>
+<status status="PASS" starttime="20231013 11:37:42.695" endtime="20231013 11:37:42.801"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>id-body-${order}[Body]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:42.807" level="INFO">Clicking button 'id-body-2'.</msg>
+<status status="PASS" starttime="20231013 11:37:42.802" endtime="20231013 11:37:42.888"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@placeholder="Enter the part number for the legs"]</arg>
+<arg>${order}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:42.895" level="INFO">Typing text '3' into text field '//input[@placeholder="Enter the part number for the legs"]'.</msg>
+<status status="PASS" starttime="20231013 11:37:42.891" endtime="20231013 11:37:43.035"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@placeholder="Shipping address"]</arg>
+<arg>${order}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:43.041" level="INFO">Typing text 'Address 789' into text field '//input[@placeholder="Shipping address"]'.</msg>
+<status status="PASS" starttime="20231013 11:37:43.036" endtime="20231013 11:37:43.180"/>
+</kw>
+<while condition="True">
+<iter>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>order</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:43.189" level="INFO">Clicking button 'order'.</msg>
+<status status="PASS" starttime="20231013 11:37:43.184" endtime="20231013 11:37:43.296"/>
+</kw>
+<kw name="Is Element Visible" library="RPA.Browser.Selenium">
+<var>${error}</var>
+<arg>//div[@class="alert alert-danger"]</arg>
+<doc>Is element visible</doc>
+<msg timestamp="20231013 11:37:43.587" level="INFO">Element '//div[@class="alert alert-danger"]' is displayed.</msg>
+<msg timestamp="20231013 11:37:43.589" level="INFO">${error} = True</msg>
+<status status="PASS" starttime="20231013 11:37:43.297" endtime="20231013 11:37:43.590"/>
+</kw>
+<if>
+<branch type="IF" condition="$error == $False">
+<break>
+<status status="NOT RUN" starttime="20231013 11:37:43.594" endtime="20231013 11:37:43.595"/>
+</break>
+<status status="NOT RUN" starttime="20231013 11:37:43.592" endtime="20231013 11:37:43.596"/>
+</branch>
+<status status="PASS" starttime="20231013 11:37:43.591" endtime="20231013 11:37:43.598"/>
+</if>
+<status status="PASS" starttime="20231013 11:37:43.181" endtime="20231013 11:37:43.598"/>
+</iter>
+<iter>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>order</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:43.605" level="INFO">Clicking button 'order'.</msg>
+<status status="PASS" starttime="20231013 11:37:43.601" endtime="20231013 11:37:43.696"/>
+</kw>
+<kw name="Is Element Visible" library="RPA.Browser.Selenium">
+<var>${error}</var>
+<arg>//div[@class="alert alert-danger"]</arg>
+<doc>Is element visible</doc>
+<msg timestamp="20231013 11:37:43.718" level="INFO" html="true">Ran with keyword &lt;b&gt;Element Should Be Visible&lt;/b&gt; which returned error: &lt;i&gt;Element with locator '//div[@class="alert alert-danger"]' not found.&lt;/i&gt;</msg>
+<msg timestamp="20231013 11:37:43.721" level="INFO">${error} = False</msg>
+<status status="PASS" starttime="20231013 11:37:43.698" endtime="20231013 11:37:43.721"/>
+</kw>
+<if>
+<branch type="IF" condition="$error == $False">
+<break>
+<status status="PASS" starttime="20231013 11:37:43.725" endtime="20231013 11:37:43.726"/>
+</break>
+<status status="PASS" starttime="20231013 11:37:43.723" endtime="20231013 11:37:43.727"/>
+</branch>
+<status status="PASS" starttime="20231013 11:37:43.723" endtime="20231013 11:37:43.728"/>
+</if>
+<status status="PASS" starttime="20231013 11:37:43.599" endtime="20231013 11:37:43.729"/>
+</iter>
+<status status="PASS" starttime="20231013 11:37:43.181" endtime="20231013 11:37:43.730"/>
+</while>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>order-another</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:47.225" level="INFO">Clicking button 'order-another'.</msg>
+<status status="PASS" starttime="20231013 11:37:43.732" endtime="20231013 11:37:47.378"/>
+</kw>
+<status status="PASS" starttime="20231013 11:37:42.592" endtime="20231013 11:37:47.380"/>
+</iter>
+<iter>
+<var name="${order}">{'Order number': '4', 'Head': '2', 'Body': '3', 'Legs': '2', 'Address': 'Address 1'}</var>
+<kw name="Close the annoying modal">
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>Yep</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:47.391" level="INFO">Clicking button 'Yep'.</msg>
+<status status="PASS" starttime="20231013 11:37:47.387" endtime="20231013 11:37:47.486"/>
+</kw>
+<status status="PASS" starttime="20231013 11:37:47.384" endtime="20231013 11:37:47.487"/>
+</kw>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${order}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20231013 11:37:47.494" level="INFO">Selecting options from selection list 'head' by value 2.</msg>
+<status status="PASS" starttime="20231013 11:37:47.489" endtime="20231013 11:37:47.598"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>id-body-${order}[Body]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:47.605" level="INFO">Clicking button 'id-body-3'.</msg>
+<status status="PASS" starttime="20231013 11:37:47.600" endtime="20231013 11:37:47.696"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@placeholder="Enter the part number for the legs"]</arg>
+<arg>${order}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:47.703" level="INFO">Typing text '2' into text field '//input[@placeholder="Enter the part number for the legs"]'.</msg>
+<status status="PASS" starttime="20231013 11:37:47.697" endtime="20231013 11:37:47.834"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@placeholder="Shipping address"]</arg>
+<arg>${order}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:47.841" level="INFO">Typing text 'Address 1' into text field '//input[@placeholder="Shipping address"]'.</msg>
+<status status="PASS" starttime="20231013 11:37:47.836" endtime="20231013 11:37:47.969"/>
+</kw>
+<while condition="True">
+<iter>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>order</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:47.978" level="INFO">Clicking button 'order'.</msg>
+<status status="PASS" starttime="20231013 11:37:47.975" endtime="20231013 11:37:48.078"/>
+</kw>
+<kw name="Is Element Visible" library="RPA.Browser.Selenium">
+<var>${error}</var>
+<arg>//div[@class="alert alert-danger"]</arg>
+<doc>Is element visible</doc>
+<msg timestamp="20231013 11:37:48.127" level="INFO">Element '//div[@class="alert alert-danger"]' is displayed.</msg>
+<msg timestamp="20231013 11:37:48.128" level="INFO">${error} = True</msg>
+<status status="PASS" starttime="20231013 11:37:48.080" endtime="20231013 11:37:48.129"/>
+</kw>
+<if>
+<branch type="IF" condition="$error == $False">
+<break>
+<status status="NOT RUN" starttime="20231013 11:37:48.134" endtime="20231013 11:37:48.135"/>
+</break>
+<status status="NOT RUN" starttime="20231013 11:37:48.132" endtime="20231013 11:37:48.136"/>
+</branch>
+<status status="PASS" starttime="20231013 11:37:48.131" endtime="20231013 11:37:48.138"/>
+</if>
+<status status="PASS" starttime="20231013 11:37:47.971" endtime="20231013 11:37:48.138"/>
+</iter>
+<iter>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>order</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:48.146" level="INFO">Clicking button 'order'.</msg>
+<status status="PASS" starttime="20231013 11:37:48.141" endtime="20231013 11:37:48.245"/>
+</kw>
+<kw name="Is Element Visible" library="RPA.Browser.Selenium">
+<var>${error}</var>
+<arg>//div[@class="alert alert-danger"]</arg>
+<doc>Is element visible</doc>
+<msg timestamp="20231013 11:37:48.270" level="INFO" html="true">Ran with keyword &lt;b&gt;Element Should Be Visible&lt;/b&gt; which returned error: &lt;i&gt;Element with locator '//div[@class="alert alert-danger"]' not found.&lt;/i&gt;</msg>
+<msg timestamp="20231013 11:37:48.272" level="INFO">${error} = False</msg>
+<status status="PASS" starttime="20231013 11:37:48.247" endtime="20231013 11:37:48.273"/>
+</kw>
+<if>
+<branch type="IF" condition="$error == $False">
+<break>
+<status status="PASS" starttime="20231013 11:37:48.276" endtime="20231013 11:37:48.277"/>
+</break>
+<status status="PASS" starttime="20231013 11:37:48.274" endtime="20231013 11:37:48.278"/>
+</branch>
+<status status="PASS" starttime="20231013 11:37:48.274" endtime="20231013 11:37:48.280"/>
+</if>
+<status status="PASS" starttime="20231013 11:37:48.139" endtime="20231013 11:37:48.280"/>
+</iter>
+<status status="PASS" starttime="20231013 11:37:47.971" endtime="20231013 11:37:48.282"/>
+</while>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>order-another</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:49.093" level="INFO">Clicking button 'order-another'.</msg>
+<status status="PASS" starttime="20231013 11:37:48.283" endtime="20231013 11:37:49.262"/>
+</kw>
+<status status="PASS" starttime="20231013 11:37:47.382" endtime="20231013 11:37:49.263"/>
+</iter>
+<iter>
+<var name="${order}">{'Order number': '5', 'Head': '3', 'Body': '5', 'Legs': '1', 'Address': 'Address 2'}</var>
+<kw name="Close the annoying modal">
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>Yep</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:49.274" level="INFO">Clicking button 'Yep'.</msg>
+<status status="PASS" starttime="20231013 11:37:49.269" endtime="20231013 11:37:49.378"/>
+</kw>
+<status status="PASS" starttime="20231013 11:37:49.266" endtime="20231013 11:37:49.380"/>
+</kw>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${order}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20231013 11:37:49.387" level="INFO">Selecting options from selection list 'head' by value 3.</msg>
+<status status="PASS" starttime="20231013 11:37:49.383" endtime="20231013 11:37:49.497"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>id-body-${order}[Body]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:49.505" level="INFO">Clicking button 'id-body-5'.</msg>
+<status status="PASS" starttime="20231013 11:37:49.499" endtime="20231013 11:37:49.609"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@placeholder="Enter the part number for the legs"]</arg>
+<arg>${order}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:49.617" level="INFO">Typing text '1' into text field '//input[@placeholder="Enter the part number for the legs"]'.</msg>
+<status status="PASS" starttime="20231013 11:37:49.612" endtime="20231013 11:37:49.765"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@placeholder="Shipping address"]</arg>
+<arg>${order}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:49.771" level="INFO">Typing text 'Address 2' into text field '//input[@placeholder="Shipping address"]'.</msg>
+<status status="PASS" starttime="20231013 11:37:49.766" endtime="20231013 11:37:49.901"/>
+</kw>
+<while condition="True">
+<iter>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>order</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:49.910" level="INFO">Clicking button 'order'.</msg>
+<status status="PASS" starttime="20231013 11:37:49.906" endtime="20231013 11:37:50.016"/>
+</kw>
+<kw name="Is Element Visible" library="RPA.Browser.Selenium">
+<var>${error}</var>
+<arg>//div[@class="alert alert-danger"]</arg>
+<doc>Is element visible</doc>
+<msg timestamp="20231013 11:37:50.137" level="INFO">Element '//div[@class="alert alert-danger"]' is displayed.</msg>
+<msg timestamp="20231013 11:37:50.139" level="INFO">${error} = True</msg>
+<status status="PASS" starttime="20231013 11:37:50.018" endtime="20231013 11:37:50.140"/>
+</kw>
+<if>
+<branch type="IF" condition="$error == $False">
+<break>
+<status status="NOT RUN" starttime="20231013 11:37:50.145" endtime="20231013 11:37:50.146"/>
+</break>
+<status status="NOT RUN" starttime="20231013 11:37:50.142" endtime="20231013 11:37:50.147"/>
+</branch>
+<status status="PASS" starttime="20231013 11:37:50.141" endtime="20231013 11:37:50.148"/>
+</if>
+<status status="PASS" starttime="20231013 11:37:49.903" endtime="20231013 11:37:50.148"/>
+</iter>
+<iter>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>order</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:50.156" level="INFO">Clicking button 'order'.</msg>
+<status status="PASS" starttime="20231013 11:37:50.151" endtime="20231013 11:37:50.265"/>
+</kw>
+<kw name="Is Element Visible" library="RPA.Browser.Selenium">
+<var>${error}</var>
+<arg>//div[@class="alert alert-danger"]</arg>
+<doc>Is element visible</doc>
+<msg timestamp="20231013 11:37:50.285" level="INFO" html="true">Ran with keyword &lt;b&gt;Element Should Be Visible&lt;/b&gt; which returned error: &lt;i&gt;Element with locator '//div[@class="alert alert-danger"]' not found.&lt;/i&gt;</msg>
+<msg timestamp="20231013 11:37:50.287" level="INFO">${error} = False</msg>
+<status status="PASS" starttime="20231013 11:37:50.267" endtime="20231013 11:37:50.288"/>
+</kw>
+<if>
+<branch type="IF" condition="$error == $False">
+<break>
+<status status="PASS" starttime="20231013 11:37:50.292" endtime="20231013 11:37:50.293"/>
+</break>
+<status status="PASS" starttime="20231013 11:37:50.289" endtime="20231013 11:37:50.294"/>
+</branch>
+<status status="PASS" starttime="20231013 11:37:50.289" endtime="20231013 11:37:50.295"/>
+</if>
+<status status="PASS" starttime="20231013 11:37:50.149" endtime="20231013 11:37:50.296"/>
+</iter>
+<status status="PASS" starttime="20231013 11:37:49.902" endtime="20231013 11:37:50.297"/>
+</while>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>order-another</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:59.474" level="INFO">Clicking button 'order-another'.</msg>
+<status status="PASS" starttime="20231013 11:37:50.298" endtime="20231013 11:37:59.640"/>
+</kw>
+<status status="PASS" starttime="20231013 11:37:49.265" endtime="20231013 11:37:59.641"/>
+</iter>
+<iter>
+<var name="${order}">{'Order number': '6', 'Head': '1', 'Body': '6', 'Legs': '6', 'Address': 'Address 3'}</var>
+<kw name="Close the annoying modal">
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>Yep</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:59.653" level="INFO">Clicking button 'Yep'.</msg>
+<status status="PASS" starttime="20231013 11:37:59.648" endtime="20231013 11:37:59.758"/>
+</kw>
+<status status="PASS" starttime="20231013 11:37:59.646" endtime="20231013 11:37:59.760"/>
+</kw>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${order}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20231013 11:37:59.767" level="INFO">Selecting options from selection list 'head' by value 1.</msg>
+<status status="PASS" starttime="20231013 11:37:59.761" endtime="20231013 11:37:59.870"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>id-body-${order}[Body]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:59.877" level="INFO">Clicking button 'id-body-6'.</msg>
+<status status="PASS" starttime="20231013 11:37:59.872" endtime="20231013 11:37:59.970"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@placeholder="Enter the part number for the legs"]</arg>
+<arg>${order}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231013 11:37:59.978" level="INFO">Typing text '6' into text field '//input[@placeholder="Enter the part number for the legs"]'.</msg>
+<status status="PASS" starttime="20231013 11:37:59.972" endtime="20231013 11:38:00.112"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@placeholder="Shipping address"]</arg>
+<arg>${order}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231013 11:38:00.120" level="INFO">Typing text 'Address 3' into text field '//input[@placeholder="Shipping address"]'.</msg>
+<status status="PASS" starttime="20231013 11:38:00.114" endtime="20231013 11:38:00.260"/>
+</kw>
+<while condition="True">
+<iter>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>order</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:38:00.271" level="INFO">Clicking button 'order'.</msg>
+<status status="PASS" starttime="20231013 11:38:00.266" endtime="20231013 11:38:00.375"/>
+</kw>
+<kw name="Is Element Visible" library="RPA.Browser.Selenium">
+<var>${error}</var>
+<arg>//div[@class="alert alert-danger"]</arg>
+<doc>Is element visible</doc>
+<msg timestamp="20231013 11:38:00.396" level="INFO" html="true">Ran with keyword &lt;b&gt;Element Should Be Visible&lt;/b&gt; which returned error: &lt;i&gt;Element with locator '//div[@class="alert alert-danger"]' not found.&lt;/i&gt;</msg>
+<msg timestamp="20231013 11:38:00.397" level="INFO">${error} = False</msg>
+<status status="PASS" starttime="20231013 11:38:00.377" endtime="20231013 11:38:00.398"/>
+</kw>
+<if>
+<branch type="IF" condition="$error == $False">
+<break>
+<status status="PASS" starttime="20231013 11:38:00.402" endtime="20231013 11:38:00.403"/>
+</break>
+<status status="PASS" starttime="20231013 11:38:00.399" endtime="20231013 11:38:00.404"/>
+</branch>
+<status status="PASS" starttime="20231013 11:38:00.399" endtime="20231013 11:38:00.406"/>
+</if>
+<status status="PASS" starttime="20231013 11:38:00.262" endtime="20231013 11:38:00.406"/>
+</iter>
+<status status="PASS" starttime="20231013 11:38:00.262" endtime="20231013 11:38:00.407"/>
+</while>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>order-another</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:38:02.919" level="INFO">Clicking button 'order-another'.</msg>
+<status status="PASS" starttime="20231013 11:38:00.409" endtime="20231013 11:38:03.091"/>
+</kw>
+<status status="PASS" starttime="20231013 11:37:59.644" endtime="20231013 11:38:03.092"/>
+</iter>
+<iter>
+<var name="${order}">{'Order number': '7', 'Head': '5', 'Body': '1', 'Legs': '5', 'Address': 'Address 4'}</var>
+<kw name="Close the annoying modal">
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>Yep</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:38:03.103" level="INFO">Clicking button 'Yep'.</msg>
+<status status="PASS" starttime="20231013 11:38:03.098" endtime="20231013 11:38:03.201"/>
+</kw>
+<status status="PASS" starttime="20231013 11:38:03.096" endtime="20231013 11:38:03.203"/>
+</kw>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${order}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20231013 11:38:03.210" level="INFO">Selecting options from selection list 'head' by value 5.</msg>
+<status status="PASS" starttime="20231013 11:38:03.206" endtime="20231013 11:38:03.313"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>id-body-${order}[Body]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:38:03.320" level="INFO">Clicking button 'id-body-1'.</msg>
+<status status="PASS" starttime="20231013 11:38:03.315" endtime="20231013 11:38:03.399"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@placeholder="Enter the part number for the legs"]</arg>
+<arg>${order}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231013 11:38:03.405" level="INFO">Typing text '5' into text field '//input[@placeholder="Enter the part number for the legs"]'.</msg>
+<status status="PASS" starttime="20231013 11:38:03.400" endtime="20231013 11:38:03.530"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@placeholder="Shipping address"]</arg>
+<arg>${order}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231013 11:38:03.537" level="INFO">Typing text 'Address 4' into text field '//input[@placeholder="Shipping address"]'.</msg>
+<status status="PASS" starttime="20231013 11:38:03.532" endtime="20231013 11:38:03.667"/>
+</kw>
+<while condition="True">
+<iter>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>order</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:38:03.676" level="INFO">Clicking button 'order'.</msg>
+<status status="PASS" starttime="20231013 11:38:03.671" endtime="20231013 11:38:03.768"/>
+</kw>
+<kw name="Is Element Visible" library="RPA.Browser.Selenium">
+<var>${error}</var>
+<arg>//div[@class="alert alert-danger"]</arg>
+<doc>Is element visible</doc>
+<msg timestamp="20231013 11:38:03.788" level="INFO" html="true">Ran with keyword &lt;b&gt;Element Should Be Visible&lt;/b&gt; which returned error: &lt;i&gt;Element with locator '//div[@class="alert alert-danger"]' not found.&lt;/i&gt;</msg>
+<msg timestamp="20231013 11:38:03.789" level="INFO">${error} = False</msg>
+<status status="PASS" starttime="20231013 11:38:03.770" endtime="20231013 11:38:03.790"/>
+</kw>
+<if>
+<branch type="IF" condition="$error == $False">
+<break>
+<status status="PASS" starttime="20231013 11:38:03.793" endtime="20231013 11:38:03.795"/>
+</break>
+<status status="PASS" starttime="20231013 11:38:03.791" endtime="20231013 11:38:03.796"/>
+</branch>
+<status status="PASS" starttime="20231013 11:38:03.791" endtime="20231013 11:38:03.797"/>
+</if>
+<status status="PASS" starttime="20231013 11:38:03.668" endtime="20231013 11:38:03.797"/>
+</iter>
+<status status="PASS" starttime="20231013 11:38:03.668" endtime="20231013 11:38:03.799"/>
+</while>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>order-another</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:38:04.602" level="INFO">Clicking button 'order-another'.</msg>
+<status status="PASS" starttime="20231013 11:38:03.800" endtime="20231013 11:38:04.770"/>
+</kw>
+<status status="PASS" starttime="20231013 11:38:03.094" endtime="20231013 11:38:04.772"/>
+</iter>
+<iter>
+<var name="${order}">{'Order number': '8', 'Head': '2', 'Body': '3', 'Legs': '3', 'Address': 'Address 5'}</var>
+<kw name="Close the annoying modal">
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>Yep</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:38:04.784" level="INFO">Clicking button 'Yep'.</msg>
+<status status="PASS" starttime="20231013 11:38:04.779" endtime="20231013 11:38:04.882"/>
+</kw>
+<status status="PASS" starttime="20231013 11:38:04.776" endtime="20231013 11:38:04.884"/>
+</kw>
+<kw name="Select From List By Value" library="RPA.Browser.Selenium">
+<arg>head</arg>
+<arg>${order}[Head]</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20231013 11:38:04.891" level="INFO">Selecting options from selection list 'head' by value 2.</msg>
+<status status="PASS" starttime="20231013 11:38:04.886" endtime="20231013 11:38:04.992"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>id-body-${order}[Body]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:38:04.999" level="INFO">Clicking button 'id-body-3'.</msg>
+<status status="PASS" starttime="20231013 11:38:04.994" endtime="20231013 11:38:05.083"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@placeholder="Enter the part number for the legs"]</arg>
+<arg>${order}[Legs]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231013 11:38:05.090" level="INFO">Typing text '3' into text field '//input[@placeholder="Enter the part number for the legs"]'.</msg>
+<status status="PASS" starttime="20231013 11:38:05.084" endtime="20231013 11:38:05.223"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>//input[@placeholder="Shipping address"]</arg>
+<arg>${order}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231013 11:38:05.231" level="INFO">Typing text 'Address 5' into text field '//input[@placeholder="Shipping address"]'.</msg>
+<status status="PASS" starttime="20231013 11:38:05.225" endtime="20231013 11:38:05.360"/>
+</kw>
+<while condition="True">
+<iter>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>order</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20231013 11:38:05.369" level="INFO">Clicking button 'order'.</msg>
+<status status="PASS" starttime="20231013 11:38:05.364" endtime="20231013 11:38:05.469"/>
+</kw>
+<kw name="Is Element Visible" library="RPA.Browser.Selenium">
+<var>${error}</var>
+<arg>//div[@class="alert alert-danger"]</arg>
+<doc>Is element visible</doc>
+<msg timestamp="20231013 11:38:05.491" level="INFO" html="true">Ran with keyword &lt;b&gt;Element Should Be Visible&lt;/b&gt; which returned error: &lt;i&gt;Element with locator '//div[@class="alert alert-danger"]' not found.&lt;/i&gt;</msg>
+<msg timestamp="20231013 11:38:05.492" level="INFO">${error} = False</msg>
+<status status="PASS" starttime="20231013 11:38:05.471" endtime="20231013 11:38:05.493"/>
+</kw>
+<if>
+<branch type="IF" condition="$error == $False">
+<break>
+<status status="PASS" starttime="20231013 11:38:05.497" endtime="20231013 11:38:05.498"/>
+</break>
+<status status="PASS" starttime="20231013 11:38:05.495" endtime="20231013 11:38:05.499"/>
+</branch>
+<status status="PASS" starttime="20231013 11:38:05.495" endtime="20231013 11:38:05.500"/>
+</if>
+<status status="PASS" starttime="20231013 11:38:05.361" endtime="20231013 11:38:05.501"/>
+</iter>

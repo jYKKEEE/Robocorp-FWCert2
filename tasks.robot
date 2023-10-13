@@ -23,9 +23,10 @@ Order robots from RobotSpareBin Industries Inc
         Input Text    //input[@placeholder="Shipping address"]    ${order}[Address]
         WHILE    True
             Click Button    order
-            ${error}=    Is Element Visible    '//div[@class="alert alert-danger"]
-            IF    $error == $True    BREAK
+            ${error}=    Is Element Visible    //div[@class="alert alert-danger"]
+            IF    $error == $False    BREAK
         END
+        Click Button    order-another
     END
     [Teardown]    Close the browser
 
