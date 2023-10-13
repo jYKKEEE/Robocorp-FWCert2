@@ -29,16 +29,31 @@ Order robots from RobotSpareBin Industries Inc
         END
         ${receiptNum}=    Get receipt
         ${pdf}=    Store the receipt as a PDF file    ${receiptNum}
+        ${screenshot}=    Take a screenshot of the robot image    ${receiptNum}
+        Embed the robot screenshot to the receipt PDF file    ${screenshot}    ${pdf}    ${receiptNum}
         Click Button    order-another
     END
     [Teardown]    Close the browser
 
 
 *** Keywords ***
+Embed the robot screenshot to the receipt PDF file
+    [Arguments]    ${screenshot}    ${pdf}    ${receiptNum}
+    ${files}=    Create List
+    ...    ${pdf}
+    ...    ${screenshot}
+    Add Files To Pdf    ${files}    output/PDFs/${receiptNum}.pdf
+
+Take a screenshot of the robot image
+    [Arguments]    ${receiptNum}
+    Screenshot    robot-preview-image    output/temp/${receiptNum}.png
+    RETURN    output/temp/${receiptNum}.png
+
 Store the receipt as a PDF file
     [Arguments]    ${order number}
     ${order_results_html}=    Get Element Attribute    receipt    outerHTML
-    Html To Pdf    ${order_results_html}    output/tempPDF/${order number}.pdf
+    Html To Pdf    ${order_results_html}    output/temp/${order number}.pdf
+    RETURN    output/temp/${order number}.pdf
 
 Get receipt
     ${return}=    Get Text    //p[@class="badge badge-success"]
