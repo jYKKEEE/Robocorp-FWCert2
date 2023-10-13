@@ -8,6 +8,7 @@ Documentation       Orders robots from RobotSpareBin Industries Inc.
 Library             RPA.Browser.Selenium    auto_close=${FALSE}
 Library             RPA.HTTP
 Library             RPA.Tables
+Library             RPA.PDF
 
 
 *** Tasks ***
@@ -26,12 +27,23 @@ Order robots from RobotSpareBin Industries Inc
             ${error}=    Is Element Visible    //div[@class="alert alert-danger"]
             IF    $error == $False    BREAK
         END
+        ${receiptNum}=    Get receipt
+        ${pdf}=    Store the receipt as a PDF file    ${receiptNum}
         Click Button    order-another
     END
     [Teardown]    Close the browser
 
 
 *** Keywords ***
+Store the receipt as a PDF file
+    [Arguments]    ${order number}
+    ${order_results_html}=    Get Element Attribute    receipt    outerHTML
+    Html To Pdf    ${order_results_html}    output/tempPDF/${order number}.pdf
+
+Get receipt
+    ${return}=    Get Text    //p[@class="badge badge-success"]
+    RETURN    ${return}
+
 Open the robot order website
     Open Available Browser    https://robotsparebinindustries.com/#/robot-order
 
